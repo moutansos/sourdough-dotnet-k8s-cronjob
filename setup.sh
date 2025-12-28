@@ -72,7 +72,7 @@ done
 rm ./README.md
 mv ./README.template.md ./README.md
 
-mv ./.github.disabled/ ./.github/
+# mv ./.github.disabled/ ./.github/
 mv ./.gitea.disabled/ ./.gitea/
 
 #Remove Setup File

@@ -1,0 +1,38 @@
+name: Build and Deploy (Dotnet Runner)
+run-name: ${{ gitea.actor }} is running build and deploy ${{ gitea.run_number }}
+on: [push]
+
+env:
+  CONTAINER_TAG: gitea-${{ gitea.run_number }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v5
+    - name: Use .NET SDK
+      uses: actions/setup-dotnet@v5
+      with:
+        dotnet-version: '9.0.x'
+    - name : Install dotnet script tool
+      run: |
+        echo "/root/.dotnet/tools" >> $GITEA_PATH
+        dotnet tool install -g dotnet-script
+    - name: Build dotnet project
+      run: |
+        ./build.csx --dotnet-build
+    - name: Build Docker Image
+      run: |
+        ./build.csx --docker-build --docker-tag ${{ env.CONTAINER_TAG }}
+    - name: Push Docker Image
+      env:
+        BWS_ACCESS_TOKEN: ${{ secrets.BWS_ACCESS_TOKEN }}
+      run: |
+        ./build.csx --docker-push --docker-tag ${{ env.CONTAINER_TAG }}
+    - name: Pulumi Deploy
+      env:
+        BWS_ACCESS_TOKEN: ${{ secrets.BWS_ACCESS_TOKEN }}
+      run: |
+        ./build.csx --pulumi-deploy --docker-tag ${{ env.CONTAINER_TAG }}
+
