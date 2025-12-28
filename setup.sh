@@ -4,19 +4,26 @@ METADATA_FILE="metadata.json"
 
 PROJECT_NAME=$(jq -r '.projectName' $METADATA_FILE)
 CONTAINER_NAME=$(jq -r '.containerName' $METADATA_FILE)
-TEMPLATE_NAME=$(jq -r '.templateName' $METADATA_FILE)
-TERMPLATE_CONTAINER_NAME=$(jq -r '.templateContainerName' $METADATA_FILE)
+TEMPLATE_NAME=$(jq -r '.templateProjectName' $METADATA_FILE)
+TEMPLATE_CONTAINER_NAME=$(jq -r '.templateContainerName' $METADATA_FILE)
 
 INFRA_PROJECT_NAME="$PROJECT_NAME.Infra"
 
+function update_directory {
+    local dir_name="$1"
+    local new_dir_name=$(echo $dir_name | sed -e "s/$TEMPLATE_NAME/$PROJECT_NAME/g" | sed -e "s/$TEMPLATE_CONTAINER_NAME/$CONTAINER_NAME/g")
+    if [[ "$new_dir_name" != "$dir_name" ]]; then
+        mv "$dir_name" "$new_dir_name"
+    fi
+}
+
 function update_file {
     local file_name="$1"
+    echo "REPLATEMENT: s/$TEMPLATE_NAME/$PROJECT_NAME/g"
     sed -i -e "s/$TEMPLATE_NAME/$PROJECT_NAME/g" $file_name
     sed -i -e "s/<<PROJECT_NAME>>/$PROJECT_NAME/g" $file_name
 
-    sed -i -e "s/$TEMPLATE_CONTAINER_NAME/$CONTAINER_NAME/g" $file_name
-    sed -i -e "s/<<CONTAINER_NAME>>/$CONTAINER_NAME/g" $file_name
-
+    echo "REPLATEMENT: s/$TEMPLATE_CONTAINER_NAME/$CONTAINER_NAME/g"
     sed -i -e "s/$TEMPLATE_CONTAINER_NAME/$CONTAINER_NAME/g" $file_name
     sed -i -e "s/<<CONTAINER_NAME>>/$CONTAINER_NAME/g" $file_name
 
@@ -27,7 +34,23 @@ function update_file {
     fi
 }
 
-GIT_IGNORED = ""
+GIT_IGNORED=""
+
+# Recursively find all directories
+find . -type d | while read -r dir; do
+    GIT_IGNORED=$(git check-ignore $dir)
+    if [[ $dir == "." ]]; then
+        continue
+    elif [[ $GIT_IGNORED != "" ]]; then
+        continue
+    elif [[ $dir = ./.git/* ]]; then
+        continue
+    fi
+
+    echo "Processing Directory: $dir"
+    update_directory $dir
+done
+
 # Recursively find all files
 find . -type f | while read -r file; do
     GIT_IGNORED=$(git check-ignore $file)
@@ -37,10 +60,11 @@ find . -type f | while read -r file; do
         continue
     elif [[ $file = ./.git/* ]]; then
         continue
+    elif [[ $file = ./metadata.json ]]; then
+        continue
     fi
 
     echo "Processing: $file"
-
     update_file $file
 done
 
