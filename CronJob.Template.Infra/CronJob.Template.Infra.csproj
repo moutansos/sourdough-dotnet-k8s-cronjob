@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Bitwarden.Secrets.Sdk" Version="1.0.0" />
+    <PackageReference Include="Pulumi" Version="3.*" />
+    <PackageReference Include="Pulumi.Kubernetes" Version="4.18.3" />
+  </ItemGroup>
+  <Target Name="CopyPulumiOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="PulumiDeploy.yaml" DestinationFiles="$(PublishDir)/Pulumi.yaml" />
+  </Target>
+  <Target Name="CopyPulumiStackConfigOnPublish" AfterTargets="Publish">
+    <Copy SourceFiles="Pulumi.dev.yaml" DestinationFiles="$(PublishDir)/Pulumi.dev.yaml" />
+  </Target>
+  <ItemGroup>
+    <ProjectReference Include="..\CronJob.Template.Common\CronJob.Template.Common.csproj" />
+  </ItemGroup>
+</Project>

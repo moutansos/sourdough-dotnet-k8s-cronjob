@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronJob.Template.Infra", "CronJob.Template.Infra\CronJob.Template.Infra.csproj", "{8AD1F5F4-493C-42EB-98A4-1B221E92C08C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronJob.Template", "CronJob.Template\CronJob.Template.csproj", "{5AD53FAE-794D-4611-B086-7789B1F1FF79}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronJob.Template.Common", "CronJob.Template.Common\CronJob.Template.Common.csproj", "{0A2B8C22-3C01-414A-84E6-DBE9D710FD49}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CronJob.Template.Tests", "CronJob.Template.Tests\CronJob.Template.Tests.csproj", "{8910A2FB-89DD-4031-8808-2F09215122E8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8AD1F5F4-493C-42EB-98A4-1B221E92C08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AD1F5F4-493C-42EB-98A4-1B221E92C08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AD1F5F4-493C-42EB-98A4-1B221E92C08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AD1F5F4-493C-42EB-98A4-1B221E92C08C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AD53FAE-794D-4611-B086-7789B1F1FF79}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AD53FAE-794D-4611-B086-7789B1F1FF79}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AD53FAE-794D-4611-B086-7789B1F1FF79}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AD53FAE-794D-4611-B086-7789B1F1FF79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0A2B8C22-3C01-414A-84E6-DBE9D710FD49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A2B8C22-3C01-414A-84E6-DBE9D710FD49}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A2B8C22-3C01-414A-84E6-DBE9D710FD49}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A2B8C22-3C01-414A-84E6-DBE9D710FD49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8910A2FB-89DD-4031-8808-2F09215122E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8910A2FB-89DD-4031-8808-2F09215122E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8910A2FB-89DD-4031-8808-2F09215122E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8910A2FB-89DD-4031-8808-2F09215122E8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

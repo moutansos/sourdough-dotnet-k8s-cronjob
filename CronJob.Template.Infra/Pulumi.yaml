@@ -1,0 +1,7 @@
+name: CronJob.Template.Infra
+description: The infra behind the CronJob.Template background service
+runtime: dotnet
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: csharp

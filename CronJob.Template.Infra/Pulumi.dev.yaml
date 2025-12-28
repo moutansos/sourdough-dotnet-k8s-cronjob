@@ -1,0 +1,2 @@
+config:
+  CronJob.Template.Infra:buildNumber: "local-001"
